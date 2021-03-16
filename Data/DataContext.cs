@@ -1,4 +1,5 @@
 using Apz_backend.Models;
+using Apz_backend.Models.DB;
 using Microsoft.EntityFrameworkCore;
 
 namespace Apz_backend.Data
@@ -14,6 +15,7 @@ namespace Apz_backend.Data
         public DbSet<Medication> Medications { get; set; }
         public DbSet<Medicine> Medicines { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,6 +24,10 @@ namespace Apz_backend.Data
             
             modelBuilder.Entity<Hospital>()
                 .HasMany(h => h.HospitalAnimals)
+                .WithOne(h => h.Hospital)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Hospital>()
+                .HasMany(h => h.Users)
                 .WithOne(h => h.Hospital)
                 .OnDelete(DeleteBehavior.Cascade);
 

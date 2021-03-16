@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+using Apz_backend.Models.DB;
 
 namespace Apz_backend.Models
 {
@@ -11,5 +11,6 @@ namespace Apz_backend.Models
         [Required]
         public string HospitalName { get; set; }
         public ICollection<Animal> HospitalAnimals { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }
