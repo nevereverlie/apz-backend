@@ -1,0 +1,14 @@
+using Apz_backend.Models.DB;
+using Apz_backend.Models.OAS;
+using AutoMapper;
+
+namespace Apz_backend.Helpers
+{
+    public class AutoMapperProfiles : Profile
+    {
+        public AutoMapperProfiles()
+        {
+            CreateMap<User, OasUser>();
+        }
+    }
+}

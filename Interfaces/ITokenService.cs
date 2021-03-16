@@ -1,6 +1,6 @@
 using Apz_backend.Models.DB;
 
-namespace Revisory_Control.API.Interfaces
+namespace Apz_backend.Interfaces
 {
     public interface ITokenService
     {
