@@ -3,8 +3,8 @@ using System.Drawing;
 
 namespace Apz_backend.Interfaces
 {
-    public interface IFaceDetectionService
+    public interface IDistanceDetectionService
     {
-        bool IsAppropriateDistance(Image image, int userId);
+        Task<bool> IsAppropriateDistance(Image animalImage, string animalType);
     }
 }
