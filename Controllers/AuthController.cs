@@ -10,20 +10,11 @@ namespace Apz_backend.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
-        private readonly ITokenService _tokenService;
-        private readonly IAppRepository _appRepository;
-        private readonly IAuthRepository _authRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AuthController(IUserRepository userRepository,
-                                 ITokenService tokenService,
-                                 IAppRepository appRepository,
-                                 IAuthRepository authRepository)
+        public AuthController(IUnitOfWork unitOfWork)
         {
-            _tokenService = tokenService;
-            _appRepository = appRepository;
-            _authRepository = authRepository;
-            _userRepository = userRepository;
+            _unitOfWork = unitOfWork;
         }
 
 
@@ -32,17 +23,17 @@ namespace Apz_backend.Controllers
         {
             if (await UserExists(logonParameters.Email)) return BadRequest("Email is taken");
 
-            return await _authRepository.Register(logonParameters);
+            return await _unitOfWork.Auth.Register(logonParameters);
         }
 
         [HttpPost("login")]
         public async Task<ActionResult<OasLogonUser>> Login(LogonParameters logonParameters)
         {
-            var user = await _userRepository.GetUserByEmail(logonParameters.Email);
+            var user = await _unitOfWork.Users.GetUserByEmail(logonParameters.Email);
 
             if (user == null) return Unauthorized("Invalid email");
 
-            var userToLogin = await _authRepository.Login(logonParameters);
+            var userToLogin = await _unitOfWork.Auth.Login(logonParameters);
 
             if (userToLogin == null) return Unauthorized("Invalid password");
 
@@ -51,7 +42,7 @@ namespace Apz_backend.Controllers
 
         private async Task<bool> UserExists(string email)
         {
-            var user = await _userRepository.GetUserByEmail(email);
+            var user = await _unitOfWork.Users.GetUserByEmail(email);
 
             return user == null ? false : true;
         }
