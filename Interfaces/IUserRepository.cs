@@ -9,5 +9,7 @@ namespace Apz_backend.Interfaces
          Task<IEnumerable<OasUser>> GetUsers();
          Task<OasUser> GetUserById(int id);
          Task<OasUser> GetUserByEmail(string email);
+         Task UpdateUser(OasUser user);
+         Task DeleteUser(int userId);
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Apz_backend.Interfaces;
+using Apz_backend.Models.DB;
 using Apz_backend.Models.OAS;
 using AutoMapper;
 
@@ -34,6 +35,25 @@ namespace Apz_backend.Services
             var userToReturn = await _userDbStorage.GetUserByEmail(email);
 
             return _mapper.Map<OasUser>(userToReturn);
+        }
+
+        public async Task UpdateUser(OasUser user)
+        {
+            User userToUpdate = new User
+            {
+                UserId = user.UserId,
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
+                UserEmail = user.UserEmail,
+                HospitalId = user.HospitalId
+            };
+
+            await _userDbStorage.UpdateUser(userToUpdate);
+        }
+
+        public async Task DeleteUser(int userId)
+        {
+            await _userDbStorage.DeleteUser(userId);
         }
     }
 }

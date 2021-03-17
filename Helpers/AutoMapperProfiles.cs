@@ -9,6 +9,7 @@ namespace Apz_backend.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, OasUser>();
+            CreateMap<OasUser, User>();
         }
     }
 }
