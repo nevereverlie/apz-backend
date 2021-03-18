@@ -6,6 +6,7 @@ namespace Apz_backend.Interfaces
     {
          IUserRepository Users { get; }
          IAuthRepository Auth { get; }
+         IMedicationRepository Medications { get; }
          int SaveChanges();
     }
 }

@@ -8,15 +8,18 @@ namespace Apz_backend.Data
         private readonly DataContext _context;
         public IUserRepository Users { get; }
         public IAuthRepository Auth { get; }
+        public IMedicationRepository Medications { get; }
         public UnitOfWork(
             DataContext context,
             IUserRepository userRepository,
-            IAuthRepository authRepository)
+            IAuthRepository authRepository,
+            IMedicationRepository medicationRepository)
         {
             _context = context;
 
             Users = userRepository;
             Auth = authRepository;
+            Medications = medicationRepository;
         }
 
         public int SaveChanges()

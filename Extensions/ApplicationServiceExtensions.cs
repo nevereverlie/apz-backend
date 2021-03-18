@@ -13,16 +13,24 @@ namespace Apz_backend.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             services.AddScoped<IAppRepository, AppRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IMedicationRepository, MedicationRepository>();
+
             services.AddScoped<IUserDbStorage, SqlServerUserDbStorage>();
+            services.AddScoped<IMedicationDbStorage, SqlServerMedicationsDbStorage>();
+
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IDistanceDetectionService, DistanceDetectionService>();
+
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+
             services.AddDbContext<DataContext>(options => {
                 options.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             });
+
             return services;
         }
     }
