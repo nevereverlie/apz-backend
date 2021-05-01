@@ -29,6 +29,7 @@ namespace Apz_backend
         {
 
             services.AddControllers();
+            services.AddCors();
             services.AddApplicationServices(Configuration);
             services.AddIdentityServices(Configuration);
             services.AddSwaggerGen(c =>
@@ -43,9 +44,14 @@ namespace Apz_backend
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Apz_backend v1"));
             }
+            else
+            {
+                app.UseHsts();
+            }
+            
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Apz_backend v1"));
 
             app.UseHttpsRedirection();
 
