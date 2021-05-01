@@ -27,13 +27,18 @@ namespace Apz_backend.Services
 
                 double distance = await Task.Run(() => GetDistance(maxHit, minHit));
 
-                if (distance >= minHit.Size.Width * minHit.Size.Height)
+                if (distance >= MinimumRequiredDistance(minHit))
                 {
                     return true;
                 }
             }
 
             return false;
+        }
+
+        private static int MinimumRequiredDistance(Rectangle minHit)
+        {
+            return minHit.Size.Width * minHit.Size.Height;
         }
 
         private double GetDistance(Rectangle maxHit, Rectangle minHit)

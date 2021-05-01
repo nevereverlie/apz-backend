@@ -32,13 +32,23 @@ namespace Apz_backend.Controllers
         {
             return Ok(await _unitOfWork.Users.GetUserByEmail(userEmail));
         }
-        [HttpPut("update")]
-        public async Task<IActionResult> UpdateUser([FromBody] OasUser userToUpdate)
+
+        [HttpPut("updateProfile")]
+        public async Task<IActionResult> UpdateProfile([FromBody] OasUser userToUpdate)
         {
             await _unitOfWork.Users.UpdateUser(userToUpdate);
 
             return Ok();
         }
+
+        [HttpPut("updateUser")]
+        public async Task<IActionResult> UpdateUser([FromForm] OasUser userToUpdate)
+        {
+            await _unitOfWork.Users.UpdateUser(userToUpdate);
+
+            return Ok();
+        }
+
         [HttpDelete("delete/{userId}")]
         public async Task<IActionResult> DeleteUser([FromRoute] int userId)
         {
