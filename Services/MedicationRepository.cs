@@ -21,9 +21,7 @@ namespace Apz_backend.Services
 
         public async Task<IEnumerable<OasMedication>> GetMedications()
         {
-            var medicationsToReturn = await _medicationDbStorage.GetMedications();
-
-            return _mapper.Map<IEnumerable<OasMedication>>(medicationsToReturn);
+            return await _medicationDbStorage.GetMedications();
         }
 
         public async Task<OasMedication> GetMedicationById(int medicationId)
@@ -35,29 +33,12 @@ namespace Apz_backend.Services
 
         public async Task AddMedication(OasMedication medication)
         {
-            Medication medicationToAdd = new Medication
-            {
-                MedicineId = medication.MedicineId,
-                MedicationType = medication.MedicationType,
-                MedicationAmount = medication.MedicationAmount,
-                MedicationTime = medication.MedicationTime
-            };
-
-            await _medicationDbStorage.AddMedication(medicationToAdd);
+            await _medicationDbStorage.AddMedication(medication);
         }
 
         public async Task UpdateMedication(OasMedication medication)
         {
-            Medication medicationToUpdate = new Medication
-            {
-                MedicationId = medication.MedicationId,
-                MedicineId = medication.MedicineId,
-                MedicationType = medication.MedicationType,
-                MedicationAmount = medication.MedicationAmount,
-                MedicationTime = medication.MedicationTime
-            };
-
-            await _medicationDbStorage.UpdateMedication(medicationToUpdate);
+            await _medicationDbStorage.UpdateMedication(medication);
         }
 
         public async Task DeleteMedication(int medicationId)

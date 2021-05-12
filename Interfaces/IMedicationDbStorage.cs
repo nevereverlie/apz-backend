@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Apz_backend.Models;
+using Apz_backend.Models.OAS;
 
 namespace Apz_backend.Interfaces
 {
     public interface IMedicationDbStorage
     {
-         Task<IEnumerable<Medication>> GetMedications();
+         Task<IEnumerable<OasMedication>> GetMedications();
          Task<Medication> GetMedicationById(int medicationId);
-         Task AddMedication(Medication medication);
-         Task UpdateMedication(Medication medication);
+         Task AddMedication(OasMedication medication);
+         Task UpdateMedication(OasMedication medication);
          Task DeleteMedication(int medicationId);    
     }
 }

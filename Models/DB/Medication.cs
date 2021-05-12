@@ -16,7 +16,7 @@ namespace Apz_backend.Models
         [Required]
         public string MedicationType { get; set; }
         [Required]
-        public DateTime MedicationTime { get; set; }
+        public string MedicationTime { get; set; }
         public ICollection<Schedule> Schedules { get; set; }
     }
 }
