@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Apz_backend.Interfaces;
+using System.IO;
 
 namespace Apz_backend.Controllers
 {
@@ -18,11 +19,12 @@ namespace Apz_backend.Controllers
 
         [HttpPost("detectDistance/{animalType}")]
         public async Task<IActionResult> DetectDistance(
-            IFormFile imageFile,
+            [FromBody]byte[] animalImageByteArray,
             [FromRoute] string animalType)
         {
-            Image animalImage = Image.FromStream(imageFile.OpenReadStream(), true, true);
-            
+            using var ms = new MemoryStream(animalImageByteArray);
+            Image animalImage = Image.FromStream(ms);
+
             return Ok(await _distanceDetectionService.IsAppropriateDistance(animalImage, animalType));
         }
     }

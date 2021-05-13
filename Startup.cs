@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Apz_backend.Extensions;
+using Apz_backend.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,7 +23,8 @@ namespace Apz_backend
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers(options =>
+                options.InputFormatters.Add(new ByteArrayInputFormatter()));
             services.AddCors();
             services.AddApplicationServices(Configuration);
             services.AddIdentityServices(Configuration);
@@ -49,7 +45,7 @@ namespace Apz_backend
             {
                 app.UseHsts();
             }
-            
+
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Apz_backend v1"));
 
