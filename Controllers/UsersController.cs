@@ -42,7 +42,7 @@ namespace Apz_backend.Controllers
         }
 
         [HttpPut("updateUser")]
-        public async Task<IActionResult> UpdateUser([FromForm] OasUser userToUpdate)
+        public async Task<IActionResult> UpdateUser([FromBody] OasUser userToUpdate)
         {
             await _unitOfWork.Users.UpdateUser(userToUpdate);
 

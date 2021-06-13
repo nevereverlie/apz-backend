@@ -22,7 +22,13 @@ namespace Apz_backend.Controllers
             return Ok(await _unitOfWork.Medications.GetMedications());
         }
 
-        [HttpGet("{medicationId}")]
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetMedications(int userId)
+        {
+            return Ok(await _unitOfWork.Medications.GetMedicationsForUser(userId));
+        }
+
+        [HttpGet("select/{medicationId}")]
         public async Task<IActionResult> GetMedicationById([FromRoute] int medicationId)
         {
             return Ok(await _unitOfWork.Medications.GetMedicationById(medicationId));

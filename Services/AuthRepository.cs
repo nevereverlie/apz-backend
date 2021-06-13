@@ -51,8 +51,8 @@ namespace Apz_backend.Services
 
             var user = new User
             {
-                Lastname = "",
-                Firstname = "",
+                Lastname = logonParameters.Lastname,
+                Firstname = logonParameters.Firstname,
                 UserEmail = logonParameters.Email,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(logonParameters.Password)),
                 PasswordSalt = hmac.Key,

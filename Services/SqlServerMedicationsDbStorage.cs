@@ -48,6 +48,33 @@ namespace Apz_backend.Services
             return result;
         }
 
+        public async Task<IEnumerable<OasMedication>> GetMedicationsForUser(int userId)
+        {
+            var medicationsFromDb = await _context.Medications.Where(m => m.UserId == userId).ToListAsync();
+
+            var result = new List<OasMedication>();
+            foreach (Medication medication in medicationsFromDb)
+            {
+                var medicineName = await _context.Medicines
+                    .Where(m => m.MedicineId == medication.MedicineId)
+                    .FirstOrDefaultAsync();
+
+                OasMedication medicationToAdd = new OasMedication 
+                {
+                    MedicationId = medication.MedicationId,
+                    MedicationAmount = medication.MedicationAmount,
+                    MedicationTime = medication.MedicationTime,
+                    MedicationType = medication.MedicationType,
+                    MedicineName = medicineName.MedicineName,
+                    UserId = medication.UserId
+                };
+
+                result.Add(medicationToAdd);
+            }
+
+            return result;
+        }
+
         public async Task<Medication> GetMedicationById(int medicationId)
         {
             return await _context.Medications.FirstOrDefaultAsync(m => m.MedicationId == medicationId);

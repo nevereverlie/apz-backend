@@ -6,7 +6,8 @@ namespace Apz_backend.Interfaces
 {
     public interface IMedicationRepository
     {
-         Task<IEnumerable<OasMedication>> GetMedications();
+        Task<IEnumerable<OasMedication>> GetMedications();
+         Task<IEnumerable<OasMedication>> GetMedicationsForUser(int userId);
          Task<OasMedication> GetMedicationById(int medicationId);
          Task AddMedication(OasMedication medication);
          Task UpdateMedication(OasMedication medication);

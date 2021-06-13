@@ -24,6 +24,11 @@ namespace Apz_backend.Services
             return await _medicationDbStorage.GetMedications();
         }
 
+        public async Task<IEnumerable<OasMedication>> GetMedicationsForUser(int userId)
+        {
+            return await _medicationDbStorage.GetMedicationsForUser(userId);
+        }
+
         public async Task<OasMedication> GetMedicationById(int medicationId)
         {
             var medicationToReturn = await _medicationDbStorage.GetMedicationById(medicationId);
