@@ -29,7 +29,7 @@ namespace Apz_backend.Data
             modelBuilder.Entity<Hospital>()
                 .HasMany(h => h.Users)
                 .WithOne(h => h.Hospital)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Animal>()
                 .HasMany(a => a.Schedules)
@@ -40,6 +40,10 @@ namespace Apz_backend.Data
                 .HasMany(m => m.Schedules)
                 .WithOne(m => m.Medication)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Medication>()
+                .HasOne(m => m.User)
+                .WithMany(m => m.Medications)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Schedule>()
                 .HasKey(h => new { h.AnimalId, h.MedicationId });
@@ -47,7 +51,16 @@ namespace Apz_backend.Data
             modelBuilder.Entity<Medicine>()
                 .HasMany(m => m.Medications)
                 .WithOne(m => m.Medicine)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Medications)
+                .WithOne(u => u.User)
+                .OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.Hospital)
+                .WithMany(u => u.Users)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

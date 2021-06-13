@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Apz_backend.Models.DB
@@ -15,6 +16,7 @@ namespace Apz_backend.Models.DB
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public int HospitalId { get; set; }
-        public Hospital Hospital { get; set; } 
+        public Hospital Hospital { get; set; }
+        public ICollection<Medication> Medications { get; set; }
     }
 }

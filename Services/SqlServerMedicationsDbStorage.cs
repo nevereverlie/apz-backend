@@ -38,7 +38,8 @@ namespace Apz_backend.Services
                     MedicationAmount = medication.MedicationAmount,
                     MedicationTime = medication.MedicationTime,
                     MedicationType = medication.MedicationType,
-                    MedicineName = medicineName.MedicineName
+                    MedicineName = medicineName.MedicineName,
+                    UserId = medication.UserId
                 };
 
                 result.Add(medicationToAdd);
@@ -59,6 +60,7 @@ namespace Apz_backend.Services
             Medication medicationToAdd = new Medication
             {
                 MedicineId = medicine.MedicineId,
+                UserId = medication.UserId,
                 MedicationAmount = medication.MedicationAmount,
                 MedicationTime = medication.MedicationTime,
                 MedicationType = medication.MedicationType,
